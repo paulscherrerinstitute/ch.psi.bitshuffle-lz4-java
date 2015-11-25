@@ -1,0 +1,5 @@
+Bundle-SymbolicName: bitshuffle-lz4-java
+Bundle-Name: bitshuffle-lz4 Java Compression
+Bundle-Version:${ivy.revision}
+Export-Package: ch.psi.*;version:=${packages.version}
+

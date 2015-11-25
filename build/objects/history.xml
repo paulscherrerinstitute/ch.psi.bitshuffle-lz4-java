@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="gcc noversion nomachine -std=c99 -c -O3 -fPIC -Isrc/bitshuffle/src -Isrc/bitshuffle/lz4 -I../../../../../usr/lib/jvm/java-8-oracle/include -I../../../../../usr/lib/jvm/java-8-oracle/include/linux -Ibuild/jni-headers">
+      <target file="ch_psi_bitshuffle_lz4_JNI.o" lastModified="1513f975c98">
+         <source file="../../src/jni/ch_psi_bitshuffle_lz4_JNI.c" lastModified="151019ecc78"/>
+      </target>
+      <target file="lz4.o" lastModified="1513f976080">
+         <source file="../../src/bitshuffle/lz4/lz4.c" lastModified="150fc447bb0"/>
+      </target>
+      <target file="bitshuffle.o" lastModified="1513f975c98">
+         <source file="../../src/bitshuffle/src/bitshuffle.c" lastModified="150fc447bb0"/>
+      </target>
+   </processor>
+</history>
