@@ -11,6 +11,8 @@
 If ivy is not installed yet, ant can take care of it for you, just run
 `ant ivy-bootstrap`. The library will be installed under ${user.home}/.ant/lib.
 
+You might also need to `ant compile-jni`.
+
 ## Instructions
 
 Then run `ant`. It will:
