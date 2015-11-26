@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="gcc -prebind -dynamiclib">
+      <target file="libbitshuffle-lz4-java.dylib" lastModified="151427e5ba0">
+         <source file="../../../../../../../objects/ch_psi_bitshuffle_lz4_JNI.o" lastModified="151427e57b8"/>
+         <source file="../../../../../../../objects/bitshuffle.o" lastModified="151427e57b8"/>
+         <source file="../../../../../../../objects/lz4.o" lastModified="151427e57b8"/>
+      </target>
+   </processor>
+</history>
