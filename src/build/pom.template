@@ -17,9 +17,9 @@
    limitations under the License.
   -->
 
-  <name>LZ4 and xxHash</name>
-  <description>Java ports and bindings of the LZ4 compression algorithm and the xxHash hashing algorithm</description>
-  <url>https://github.com/jpountz/lz4-java</url>
+  <name>Bitshuffle with LZ4</name>
+  <description>Java bindings of the bitshuffle and LZ4 compression algorithm</description>
+  <url>https://github.psi.ch/projects/ST/repos/ch.psi.bitshuffle-lz4-java</url>
   <modelVersion>4.0.0</modelVersion>
   <groupId>${ivy.pom.groupId}</groupId>
   <artifactId>${ivy.pom.artifactId}</artifactId>
@@ -33,14 +33,14 @@
     </license>
   </licenses>
   <scm>
-    <url>git://github.com/jpountz/lz4-java.git</url>
-    <connection>https://github.com/jpountz/lz4-java</connection>
+    <url>git://github.psi.ch:7999/st/ch.psi.bitshuffle-lz4-java.git</url>
+    <connection>https://github.psi.ch/projects/ST/repos/ch.psi.bitshuffle-lz4-java</connection>
   </scm>
   <developers>
     <developer>
-      <id>jpountz</id>
-      <name>Adrien Grand</name>
-      <email>jpountz@gmail.com</email>
+      <id>markif</id>
+      <name>Fabian Märki</name>
+      <email>fabian.maerki@psi.ch</email>
     </developer>
   </developers>
 </project>

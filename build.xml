@@ -109,7 +109,7 @@
     <mkdir dir="${build}/classes" />
     <javac
       includeAntRuntime="false"
-      srcdir="${src}/java"
+      srcdir="${src}/main/java"
       source="${javac.source}"
       target="${javac.target}"
       encoding="UTF-8"
@@ -156,20 +156,20 @@
     <mkdir dir="${dist}" />
     <jar
       destfile="${dist}/${ivy.module}-${ivy.revision}-sources.jar">
-      <fileset dir="${src}/java" />
+      <fileset dir="${src}/main/java" />
     </jar>
   </target>
 
   <target name="docs" description="generate javadocs" depends="init">
     <mkdir dir="${build}/docs" />
     <javadoc
-        overview="${src}/java/overview.html"
+        overview="${src}/main/java/overview.html"
         packagenames="ch.psi.bitshuffle"
         windowtitle="bitshuffle /lz4 - Java API ${ivy.revision}"
         destDir="${build}/docs">
       <link href="http://download.oracle.com/javase/6/docs/api/" />
       <sourcepath>
-        <pathelement location="${src}/java"/>
+        <pathelement location="${src}/main/java"/>
       </sourcepath>
     </javadoc>
     <mkdir dir="${dist}" />
@@ -253,7 +253,7 @@
   </target>
 
   <target name="-deploy" depends="clean,dist">
-    <deploy repositoryid="sonatype-nexus-snapshots" repositoryurl="https://oss.sonatype.org/content/repositories/snapshots" />
+    <deploy repositoryid="libs-snapshots" repositoryurl="http://artifacts.psi.ch/artifactory/libs-snapshots" />
   </target>
 
   <!-- before this, update project version from SNAPSHOT to RELEASE -->
@@ -263,7 +263,7 @@
   </target>
 
   <target name="-stage" depends="clean,dist">
-    <deploy repositoryid="sonatype-nexus-staging" repositoryurl="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
+    <deploy repositoryid="libs-releases" repositoryurl="http://artifacts.psi.ch/artifactory/libs-releases" />
   </target>
 
 </project>
