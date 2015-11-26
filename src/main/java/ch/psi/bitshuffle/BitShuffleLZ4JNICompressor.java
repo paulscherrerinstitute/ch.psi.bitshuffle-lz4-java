@@ -20,8 +20,8 @@ import static ch.psi.bitshuffle.util.ByteBufferUtils.checkRange;
 import java.nio.ByteBuffer;
 
 /**
- * {@link BitShuffleLZ4Compressor} implemented with JNI bindings to the
- * original C implementation.
+ * {@link BitShuffleLZ4Compressor} implemented with JNI bindings to the original
+ * C implementation.
  */
 public class BitShuffleLZ4JNICompressor implements BitShuffleLZ4Compressor {
 
@@ -30,7 +30,9 @@ public class BitShuffleLZ4JNICompressor implements BitShuffleLZ4Compressor {
       int nElements, int bytesPerElement, int blockSize) {
     checkNotReadOnly(dest);
     checkRange(src, srcOff);
-    checkRange(dest, destOff, nElements * bytesPerElement);
+    checkRange(dest, destOff);
+    // checkRange(dest, destOff, maxCompressedLength(nElements, bytesPerElement,
+    // blockSize));
 
     byte[] srcArr = null, destArr = null;
     ByteBuffer srcBuf = null, destBuf = null;

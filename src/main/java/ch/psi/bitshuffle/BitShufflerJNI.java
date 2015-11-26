@@ -24,8 +24,10 @@ public class BitShufflerJNI implements BitShuffler {
   public int shuffle(ByteBuffer src, int srcOff, ByteBuffer dest, int destOff,
       int nElements, int bytesPerElement, int blockSize) {
     ByteBufferUtils.checkNotReadOnly(dest);
-    ByteBufferUtils.checkRange(src, srcOff, nElements * bytesPerElement);
+    ByteBufferUtils.checkRange(src, srcOff);
     ByteBufferUtils.checkRange(dest, destOff);
+    // checkRange(dest, destOff, maxCompressedLength(nElements, bytesPerElement,
+    // blockSize));
 
     byte[] srcArr = null, destArr = null;
     ByteBuffer srcBuf = null, destBuf = null;
@@ -45,7 +47,8 @@ public class BitShufflerJNI implements BitShuffler {
     }
 
     final int result = BitShuffleLZ4JNI.Bitshuffle_bitshuffle(srcArr, srcBuf,
-        srcOff, destArr, destBuf, destOff, nElements, bytesPerElement, blockSize);
+        srcOff, destArr, destBuf, destOff, nElements, bytesPerElement,
+        blockSize);
     if (result < 0) {
       throw new BitShuffleLZ4Exception("Error shuffling offset "
           + (srcOff - result) + " of input buffer");
@@ -78,7 +81,8 @@ public class BitShufflerJNI implements BitShuffler {
     }
 
     final int result = BitShuffleLZ4JNI.Bitshuffle_bitunshuffle(srcArr, srcBuf,
-        srcOff, destArr, destBuf, destOff, nElements, bytesPerElement, blockSize);
+        srcOff, destArr, destBuf, destOff, nElements, bytesPerElement,
+        blockSize);
     if (result < 0) {
       throw new BitShuffleLZ4Exception("Error shuffling offset "
           + (srcOff - result) + " of input buffer");

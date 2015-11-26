@@ -28,8 +28,8 @@ public class BitShuffleLZ4JNIDecompressor implements BitShuffleLZ4Decompressor {
   public int decompress(ByteBuffer src, int srcOff, ByteBuffer dest,
       int destOff, int nElements, int bytesPerElement, int blockSize) {
     ByteBufferUtils.checkNotReadOnly(dest);
-    ByteBufferUtils.checkRange(src, srcOff, nElements * bytesPerElement);
-    ByteBufferUtils.checkRange(dest, destOff);
+    ByteBufferUtils.checkRange(src, srcOff);
+    ByteBufferUtils.checkRange(dest, destOff, nElements * bytesPerElement);
 
     byte[] srcArr = null, destArr = null;
     ByteBuffer srcBuf = null, destBuf = null;
