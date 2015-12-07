@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="gcc -shared">
+      <target file="libbitshuffle-lz4-java.so" lastModified="15144109f92">
+         <source file="..\..\..\..\..\..\..\objects\ch_psi_bitshuffle_lz4_JNI.o" lastModified="15144109e9e"/>
+         <source file="..\..\..\..\..\..\..\objects\bitshuffle.o" lastModified="151440b289b"/>
+         <source file="..\..\..\..\..\..\..\objects\lz4.o" lastModified="151440b2fe4"/>
+      </target>
+   </processor>
+</history>
