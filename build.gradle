@@ -1,8 +1,9 @@
 apply plugin: 'java'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 
-version = '1.0.0'
+version = '1.0.1'
 
 // Add compiled sources to classpath
 sourceSets.main.java.srcDir "build/jni"
@@ -13,4 +14,22 @@ repositories {
 
 dependencies {
     testCompile 'junit:junit:4.12'
+}
+
+jar {
+   from('build/jni') {
+   	include '**/*'
+   }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://artifacts.psi.ch/artifactory/libs-snapshots-local"){
+            	authentication(userName: "upload", password: "{DESede}eWKHxAtQ2Dc=")
+            }
+            pom.groupId = 'ch.psi'
+            pom.artifactId = 'bitshuffle-lz4'
+        }
+    }
 }
