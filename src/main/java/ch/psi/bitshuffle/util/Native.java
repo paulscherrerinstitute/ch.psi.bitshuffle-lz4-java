@@ -26,7 +26,7 @@ public enum Native {
   private enum OS {
     // Even on Windows, the default compiler from cpptasks (gcc) uses .so as a
     // shared lib extension
-    WINDOWS("win32", "so"), LINUX("linux", "so"), MAC("darwin", "dylib"), SOLARIS(
+    WINDOWS("windows", "dll"), LINUX("linux", "so"), MAC("darwin", "dylib"), SOLARIS(
         "solaris", "so");
     public final String name, libExtension;
 
@@ -61,7 +61,7 @@ public enum Native {
     String packagePrefix = Native.class.getPackage().getName()
         .replace('.', '/');
 
-    return "/" + packagePrefix + "/" + os.name + "/" + arch()
+    return "/" + os.name + "/" + arch()
         + "/libbitshuffle-lz4-java." + os.libExtension;
   }
 

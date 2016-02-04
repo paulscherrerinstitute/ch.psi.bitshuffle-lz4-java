@@ -5,21 +5,12 @@ sourceCompatibility = 1.8
 
 version = '1.0.1'
 
-// Add compiled sources to classpath
-sourceSets.main.java.srcDir "build/jni"
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
     testCompile 'junit:junit:4.12'
-}
-
-jar {
-   from('build/jni') {
-   	include '**/*'
-   }
 }
 
 uploadArchives {
@@ -32,4 +23,22 @@ uploadArchives {
             pom.artifactId = 'bitshuffle-lz4'
         }
     }
+}
+
+
+
+task nativeHeaders {
+  def nativeHeadersDir = file("src/jni")
+  def outputFile = file("$nativeHeadersDir/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
+  inputs.files sourceSets.main.output
+  outputs.file outputFile
+  doLast {
+    outputFile.parentFile.mkdirs()
+    exec {
+      executable org.gradle.internal.jvm.Jvm.current().getExecutable('javah')
+        args '-o', outputFile
+        args '-classpath', sourceSets.main.output.classesDir
+        args 'ch.psi.bitshuffle.BitShuffleLZ4JNI'
+    }
+  }
 }
