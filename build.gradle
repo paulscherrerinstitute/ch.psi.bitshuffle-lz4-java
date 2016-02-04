@@ -66,6 +66,7 @@ task compileC{
         args  '-prebind',
               '-dynamiclib',
               '-O3',
+              '-std=c99',
               '-I', "${home}/../include/${osName}",
               '-I', "${home}/../include",
               '-I', 'src/main/c',
@@ -82,6 +83,7 @@ task compileC{
         executable 'gcc'
         args  '-shared',
               '-O3',
+              '-std=c99',
               '-I', "${home}/../include/${osName}",
               '-I', "${home}/../include",
               '-I', 'src/main/c',
