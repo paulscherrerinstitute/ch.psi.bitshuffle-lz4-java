@@ -3,7 +3,7 @@ apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 
-version = '1.0.1'
+version = '1.0.2'
 
 repositories {
     mavenCentral()
@@ -27,7 +27,8 @@ uploadArchives {
 
 
 
-task makeHeaders {
+task makeHeaders << {
+  println('Make JNI header')
   def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
   inputs.files sourceSets.main.output
   outputs.file outputFile
@@ -42,8 +43,7 @@ task makeHeaders {
   }
 }
 
-task compileC{
-
+task makeNativeCode << {
 
   def home = System.properties.'java.home'
   def osName = System.getProperty("os.name")
