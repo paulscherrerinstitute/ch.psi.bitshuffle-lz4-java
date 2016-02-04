@@ -68,9 +68,11 @@ task compileC{
           '-I', "${home}/../include/darwin",
           '-I', "${home}/../include",
           '-I', 'src/main/c',
+          '-I', 'src/main/c/lz4',
+          '-I', 'src/main/c/bitshuffle',
           '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dylib",
-          'src/main/c/lz4.c',
-          'src/main/c//bitshuffle.c',
+          'src/main/c/lz4/lz4.c',
+          'src/main/c/bitshuffle/bitshuffle.c',
           'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
   }
 }
