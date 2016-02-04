@@ -60,19 +60,37 @@ task compileC{
   println(osArch)
   println(osName)
 
-  exec {
-    executable 'gcc'
-    args  '-prebind',
-          '-dynamiclib',
-          '-O3',
-          '-I', "${home}/../include/darwin",
-          '-I', "${home}/../include",
-          '-I', 'src/main/c',
-          '-I', 'src/main/c/lz4',
-          '-I', 'src/main/c/bitshuffle',
-          '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dylib",
-          'src/main/c/lz4/lz4.c',
-          'src/main/c/bitshuffle/bitshuffle.c',
-          'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
+  if (osName == 'darwin'){
+      exec {
+        executable 'gcc'
+        args  '-prebind',
+              '-dynamiclib',
+              '-O3',
+              '-I', "${home}/../include/${osName}",
+              '-I', "${home}/../include",
+              '-I', 'src/main/c',
+              '-I', 'src/main/c/lz4',
+              '-I', 'src/main/c/bitshuffle',
+              '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dylib",
+              'src/main/c/lz4/lz4.c',
+              'src/main/c/bitshuffle/bitshuffle.c',
+              'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
+      }
+  }
+  else if (osName == 'linux'){
+      exec {
+        executable 'gcc'
+        args  '-shared',
+              '-O3',
+              '-I', "${home}/../include/${osName}",
+              '-I', "${home}/../include",
+              '-I', 'src/main/c',
+              '-I', 'src/main/c/lz4',
+              '-I', 'src/main/c/bitshuffle',
+              '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.so",
+              'src/main/c/lz4/lz4.c',
+              'src/main/c/bitshuffle/bitshuffle.c',
+              'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
+      }
   }
 }
