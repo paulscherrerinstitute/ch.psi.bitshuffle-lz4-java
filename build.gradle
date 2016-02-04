@@ -96,4 +96,25 @@ task makeNativeCode << {
               'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
       }
   }
+  else if (osName == 'windows'){
+      // https://msdn.microsoft.com/en-us/library/610ecb4h.aspx
+      // cl /O2 /Iall /Iyour /Iincludes /D_USRDLL /D_WINDLL /DOTHER_DEFINES <libs> <source files> /LD /Fe<dll name> /link /DEF:<def name>.def
+      exec {
+        executable 'cl'
+        args  '/O2',
+              '/D_USRDLL',
+              '/D_WINDLL',
+              '/I', "${home}\..\include\${osName}",
+              '/I', "${home}\..\include",
+              '/I', 'src\main\c',
+              '/I', 'src\main\c\lz4',
+              '/I', 'src\main\c\bitshuffle',
+              'src\main\c\lz4\lz4.c',
+              'src\main\c\bitshuffle\bitshuffle.c',
+              'src\main\c\ch_psi_bitshuffle_lz4_JNI.c',
+              '/link'
+              '/DLL',
+              '/OUT:src\main\resources\${osName}\${osArch}\libbitshuffle-lz4-java.dll",
+      }
+  }
 }
