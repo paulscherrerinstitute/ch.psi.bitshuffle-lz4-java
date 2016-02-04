@@ -83,6 +83,7 @@ task compileC{
         executable 'gcc'
         args  '-shared',
               '-O3',
+              '-fPIC',
               '-std=c99',
               '-I', "${home}/../include/${osName}",
               '-I', "${home}/../include",
