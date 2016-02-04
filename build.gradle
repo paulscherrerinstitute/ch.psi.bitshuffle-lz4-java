@@ -65,6 +65,7 @@ task compileC{
     executable 'gcc'
     args  '-prebind',
           '-dynamiclib',
+          '-O3',
           '-I', "${home}/../include/darwin",
           '-I', "${home}/../include",
           '-I', 'build/jni-headers/',
