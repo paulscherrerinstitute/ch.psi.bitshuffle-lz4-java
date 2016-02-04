@@ -27,7 +27,7 @@ uploadArchives {
 
 
 
-task nativeHeaders {
+task makeHeaders {
   def nativeHeadersDir = file("src/jni")
   def outputFile = file("$nativeHeadersDir/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
   inputs.files sourceSets.main.output
@@ -40,5 +40,39 @@ task nativeHeaders {
         args '-classpath', sourceSets.main.output.classesDir
         args 'ch.psi.bitshuffle.BitShuffleLZ4JNI'
     }
+  }
+}
+
+task compileC{
+
+
+  def home = System.properties.'java.home'
+  def osName = System.getProperty("os.name")
+  def osArch = System.getProperty("os.arch")
+
+  if (osName.contains("Linux")) {
+      osName = 'linux'
+  } else if (osName.contains("Mac")) {
+      osName = 'darwin'
+  } else if (osName.contains("Windows")) {
+      osName = 'windows'
+  }
+
+  println(osArch)
+  println(osName)
+
+  exec {
+    executable 'gcc'
+    args  '-prebind',
+          '-dynamiclib',
+          '-I', "${home}/../include/darwin",
+          '-I', "${home}/../include",
+          '-I', 'build/jni-headers/',
+          '-I', 'src/bitshuffle/lz4',
+          '-I', 'src/bitshuffle/src',
+          '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dylib",
+          'src/bitshuffle/lz4/lz4.c',
+          'src/bitshuffle/src/bitshuffle.c',
+          'src/jni/ch_psi_bitshuffle_lz4_JNI.c'
   }
 }
