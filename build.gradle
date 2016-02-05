@@ -45,7 +45,7 @@ task makeHeaders << {
 
 task makeNativeCode << {
 
-  def home = System.properties.'java.home'
+  def home = System.getProperty("java.home")
   def osName = System.getProperty("os.name")
   def osArch = System.getProperty("os.arch")
 
