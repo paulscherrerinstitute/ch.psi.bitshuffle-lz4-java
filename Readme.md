@@ -21,3 +21,12 @@ Rebuild C code for current platform and replace packaged dll,so,dylib
 ```bash
 ./gradlew makeHeaders
 ```
+
+## Windows
+
+Before being able to compile the native library on Windows Cygwin need to be 
+
+```bash
+set PATH=%PATH%;C:\cygwin\bin
+set PATH="\Program Files\Java\jdk1.8.0_72\bin";%PATH%
+```
