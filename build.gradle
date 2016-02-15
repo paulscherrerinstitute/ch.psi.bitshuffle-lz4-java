@@ -27,7 +27,7 @@ uploadArchives {
 
 
 
-task makeHeaders << {
+task makeHeaders {
   println('Make JNI header')
   def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
   inputs.files sourceSets.main.output
@@ -43,7 +43,7 @@ task makeHeaders << {
   }
 }
 
-task makeNativeCode << {
+task makeNativeCode {
 
   def home = System.getProperty("java.home")
   def osName = System.getProperty("os.name")
