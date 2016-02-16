@@ -1,4 +1,0 @@
-# ant install-bnd
-# ant ivy-install
-ant ivy-bootstrap
-ant compile-jni

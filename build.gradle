@@ -1,0 +1,117 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+
+version = '1.0.2'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://artifacts.psi.ch/artifactory/libs-snapshots-local"){
+            	authentication(userName: "upload", password: "{DESede}eWKHxAtQ2Dc=")
+            }
+            pom.groupId = 'ch.psi'
+            pom.artifactId = 'bitshuffle-lz4'
+        }
+    }
+}
+
+
+
+task makeHeaders {
+  println('Make JNI header')
+  def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
+  inputs.files sourceSets.main.output
+  outputs.file outputFile
+  doLast {
+    outputFile.parentFile.mkdirs()
+    exec {
+      executable org.gradle.internal.jvm.Jvm.current().getExecutable('javah')
+        args '-o', outputFile
+        args '-classpath', sourceSets.main.output.classesDir
+        args 'ch.psi.bitshuffle.BitShuffleLZ4JNI'
+    }
+  }
+}
+
+task makeNativeCode {
+
+  def home = System.getProperty("java.home")
+  def osName = System.getProperty("os.name")
+  def osArch = System.getProperty("os.arch")
+
+  if (osName.contains("Linux")) {
+      osName = 'linux'
+  } else if (osName.contains("Mac")) {
+      osName = 'darwin'
+  } else if (osName.contains("Windows")) {
+      osName = 'windows'
+  }
+
+  println(osArch)
+  println(osName)
+
+  if (osName == 'darwin'){
+      exec {
+        executable 'gcc'
+        args  '-prebind',
+              '-dynamiclib',
+              '-O3',
+              '-std=c99',
+              '-I', "${home}/../include/${osName}",
+              '-I', "${home}/../include",
+              '-I', 'src/main/c',
+              '-I', 'src/main/c/lz4',
+              '-I', 'src/main/c/bitshuffle',
+              '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dylib",
+              'src/main/c/lz4/lz4.c',
+              'src/main/c/bitshuffle/bitshuffle.c',
+              'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
+      }
+  }
+  else if (osName == 'linux'){
+      exec {
+        executable 'gcc'
+        args  '-shared',
+              '-O3',
+              '-fPIC',
+              '-std=c99',
+              '-I', "${home}/../include/${osName}",
+              '-I', "${home}/../include",
+              '-I', 'src/main/c',
+              '-I', 'src/main/c/lz4',
+              '-I', 'src/main/c/bitshuffle',
+              '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.so",
+              'src/main/c/lz4/lz4.c',
+              'src/main/c/bitshuffle/bitshuffle.c',
+              'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
+      }
+  }
+  else if (osName == 'windows'){
+      exec {
+          executable 'gcc'
+          args  '-shared',
+                '-O3',
+                '-D__int64=int64_t',
+                '-std=c99',
+                '-I', "${home}/../include/win32",
+                '-I', "${home}/../include",
+                '-I', 'src/main/c',
+                '-I', 'src/main/c/lz4',
+                '-I', 'src/main/c/bitshuffle',
+                '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dll",
+                'src/main/c/lz4/lz4.c',
+                'src/main/c/bitshuffle/bitshuffle.c',
+                'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
+      }
+  }
+}

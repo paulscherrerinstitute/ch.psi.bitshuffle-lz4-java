@@ -1,4 +1,6 @@
-.DS_Store
-build/docs
-build/objects
-dist
+build
+bin
+.gradle
+.classpath
+.settings
+.project
