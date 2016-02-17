@@ -55,6 +55,14 @@ JNIEXPORT jint JNICALL Java_ch_psi_bitshuffle_BitShuffleLZ4JNI_Bitshuffle_1LZ4_1
 JNIEXPORT jint JNICALL Java_ch_psi_bitshuffle_BitShuffleLZ4JNI_Bitshuffle_1LZ4_1bound
   (JNIEnv *, jclass, jint, jint, jint);
 
+/*
+ * Class:     ch_psi_bitshuffle_BitShuffleLZ4JNI
+ * Method:    Bitshuffle_default_block_size
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_ch_psi_bitshuffle_BitShuffleLZ4JNI_Bitshuffle_1default_1block_1size
+  (JNIEnv *, jclass, jint);
+
 #ifdef __cplusplus
 }
 #endif

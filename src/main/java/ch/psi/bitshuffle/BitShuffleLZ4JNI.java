@@ -53,4 +53,6 @@ enum BitShuffleLZ4JNI {
 
   static native int Bitshuffle_LZ4_bound(int nElements, int bytesPerElement,
       int blockSize);
+
+  static native int Bitshuffle_default_block_size(int bytesPerElement);
 }

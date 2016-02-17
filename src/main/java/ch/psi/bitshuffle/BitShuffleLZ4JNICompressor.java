@@ -61,7 +61,12 @@ public class BitShuffleLZ4JNICompressor implements BitShuffleLZ4Compressor {
   }
 
   @Override
-  public int maxCompressedLength(int size, int elemSize, int blockSize) {
-    return BitShuffleLZ4JNI.Bitshuffle_LZ4_bound(size, elemSize, blockSize);
+  public int maxCompressedLength(int size, int bytesPerElement, int blockSize) {
+    return BitShuffleLZ4JNI.Bitshuffle_LZ4_bound(size, bytesPerElement, blockSize);
+  }
+
+  @Override
+  public int getDefaultBlockSize(int bytesPerElement) {
+    return BitShuffleLZ4JNI.Bitshuffle_default_block_size(bytesPerElement);
   }
 }

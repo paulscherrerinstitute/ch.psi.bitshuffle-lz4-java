@@ -228,3 +228,15 @@ JNIEXPORT jint JNICALL Java_ch_psi_bitshuffle_BitShuffleLZ4JNI_Bitshuffle_1LZ4_1
   return bshuf_compress_lz4_bound(nElements, bytesPerElement, blockSize);
 
 }
+
+/*
+ * Class:     ch_psi_bitshuffle_BitShuffleLZ4JNI
+ * Method:    Bitshuffle_default_block_size
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_ch_psi_bitshuffle_BitShuffleLZ4JNI_Bitshuffle_1default_1block_1size
+  (JNIEnv *env, jclass cls, jint bytesPerElement) {
+
+  return bshuf_default_block_size(bytesPerElement);
+
+}

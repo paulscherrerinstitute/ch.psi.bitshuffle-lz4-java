@@ -56,4 +56,13 @@ public interface BitShuffleLZ4Compressor {
   public int maxCompressedLength(int nElements, int bytesPerElement,
       int blockSize);
 
+  /**
+   * The default block size.
+   * 
+   * @param bytesPerElement
+   *          The bytes used to represent one element
+   * @return int The default block size
+   */
+  public int getDefaultBlockSize(int bytesPerElement);
+
 }
