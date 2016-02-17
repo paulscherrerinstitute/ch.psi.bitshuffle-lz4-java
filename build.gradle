@@ -28,7 +28,6 @@ uploadArchives {
 
 
 task makeHeaders {
-  doLast {
     println('Make JNI header')
     def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
     inputs.files sourceSets.main.output
@@ -42,7 +41,6 @@ task makeHeaders {
           args 'ch.psi.bitshuffle.BitShuffleLZ4JNI'
       }
     }
-  }
 }
 
 task makeNativeCode {
