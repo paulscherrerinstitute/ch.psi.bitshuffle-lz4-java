@@ -29,11 +29,20 @@ uploadArchives {
 
 task makeHeaders {
     println('Make JNI header')
-    def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
     
     def osName = System.getProperty("os.name")
+    if (osName.contains("Linux")) {
+        osName = 'linux'
+    } else if (osName.contains("Mac")) {
+        osName = 'darwin'
+    } else if (osName.contains("Windows")) {
+        osName = 'windows'
+    }
+    
+    def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
+    
     if (osName == 'windows'){
-    	outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI_WIN.h")
+    	def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI_WIN.h")
     }
     
     inputs.files sourceSets.main.output
