@@ -29,7 +29,22 @@ uploadArchives {
 
 task makeHeaders {
     println('Make JNI header')
+    
+    def osName = System.getProperty("os.name")
+    if (osName.contains("Linux")) {
+        osName = 'linux'
+    } else if (osName.contains("Mac")) {
+        osName = 'darwin'
+    } else if (osName.contains("Windows")) {
+        osName = 'windows'
+    }
+    
     def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
+    
+    if (osName == 'windows'){
+    	outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI_WIN.h")
+    }
+    
     inputs.files sourceSets.main.output
     outputs.file outputFile
     doLast {
@@ -74,6 +89,8 @@ task makeNativeCode {
                 '-I', 'src/main/c/bitshuffle',
                 '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dylib",
                 'src/main/c/lz4/lz4.c',
+                'src/main/c/bitshuffle/iochain.c',
+                'src/main/c/bitshuffle/bitshuffle_core.c',
                 'src/main/c/bitshuffle/bitshuffle.c',
                 'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
         }
@@ -92,27 +109,34 @@ task makeNativeCode {
                 '-I', 'src/main/c/bitshuffle',
                 '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.so",
                 'src/main/c/lz4/lz4.c',
+                'src/main/c/bitshuffle/iochain.c',
+                'src/main/c/bitshuffle/bitshuffle_core.c',
                 'src/main/c/bitshuffle/bitshuffle.c',
                 'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
         }
     }
     else if (osName == 'windows'){
-        exec {
-            executable 'gcc'
-            args  '-shared',
-                  '-O3',
-                  '-D__int64=int64_t',
-                  '-std=c99',
-                  '-I', "${home}/../include/win32",
-                  '-I', "${home}/../include",
-                  '-I', 'src/main/c',
-                  '-I', 'src/main/c/lz4',
-                  '-I', 'src/main/c/bitshuffle',
-                  '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dll",
+          exec {
+            executable 'cl'
+            args  '/O2',
+                  '/TP',
+                  '/D_USRDLL',
+                  '/D_WINDLL',
+                  '/I', "${home}/../include/win32",
+                  '/I', "${home}/../include",
+                  '/I', 'src/main/c',
+                  '/I', 'src/main/c/lz4',
+                  '/I', 'src/main/c/bitshuffle',
                   'src/main/c/lz4/lz4.c',
+                  'src/main/c/bitshuffle/iochain.c',
+                  'src/main/c/bitshuffle/bitshuffle_core.c',
                   'src/main/c/bitshuffle/bitshuffle.c',
-                  'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
-        }
+                  'src/main/c/ch_psi_bitshuffle_lz4_JNI_WIN.c',
+                  '/MD',
+                  '/LD',
+                  "/Fesrc/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dll",
+                  '/link'
+          }
     }
   }
 }
