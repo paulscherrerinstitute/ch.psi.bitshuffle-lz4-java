@@ -116,7 +116,6 @@ task makeNativeCode {
         }
     }
     else if (osName == 'windows'){
-         println("test $home")
           exec {
             executable 'cl'
             args  '/O2',
