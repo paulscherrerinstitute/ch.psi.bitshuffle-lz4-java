@@ -24,9 +24,10 @@ Rebuild C code for current platform and replace packaged dll,so,dylib
 
 ## Windows
 
-Before being able to compile the native library on Windows Cygwin need to be 
+Before being able to compile the native library on Windows Cygwin need to be
 
 ```bash
-set PATH=%PATH%;C:\cygwin\bin
+#set PATH=%PATH%;C:\cygwin\bin
+call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" amd64
 set PATH="\Program Files\Java\jdk1.8.0_72\bin";%PATH%
 ```
