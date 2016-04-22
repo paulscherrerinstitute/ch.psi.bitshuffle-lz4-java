@@ -94,6 +94,8 @@ task makeNativeCode {
                 '-I', 'src/main/c/bitshuffle',
                 '-o', "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.so",
                 'src/main/c/lz4/lz4.c',
+                'src/main/c/bitshuffle/iochain.c',
+                'src/main/c/bitshuffle/bitshuffle_core.c',
                 'src/main/c/bitshuffle/bitshuffle.c',
                 'src/main/c/ch_psi_bitshuffle_lz4_JNI.c'
         }
