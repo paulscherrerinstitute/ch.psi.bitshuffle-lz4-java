@@ -42,7 +42,7 @@ task makeHeaders {
     def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI.h")
     
     if (osName == 'windows'){
-    	def outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI_WIN.h")
+    	outputFile = file("src/main/c/ch_psi_bitshuffle_BitShuffleLZ4JNI_WIN.h")
     }
     
     inputs.files sourceSets.main.output
