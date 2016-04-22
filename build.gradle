@@ -136,7 +136,7 @@ task makeNativeCode {
                   'src/main/c/ch_psi_bitshuffle_lz4_JNI_WIN.c',
                   '/MD',
                   '/LD',
-                  "src/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dll",
+                  "/Fesrc/main/resources/${osName}/${osArch}/libbitshuffle-lz4-java.dll",
                   '/link'
           }
     }
