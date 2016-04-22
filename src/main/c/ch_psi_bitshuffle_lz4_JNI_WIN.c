@@ -13,7 +13,7 @@
  */
 
 #include "bitshuffle.h"
-#include "ch_psi_bitshuffle_BitShuffleLZ4JNI.h"
+#include "ch_psi_bitshuffle_BitShuffleLZ4JNI_WIN.h"
 
 static jclass OutOfMemoryError;
 
