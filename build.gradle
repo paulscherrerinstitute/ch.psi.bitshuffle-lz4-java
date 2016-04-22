@@ -116,7 +116,6 @@ task makeNativeCode {
         }
     }
     else if (osName == 'windows'){
-        home = "C:/Program Files/Java/jdk1.8.0_72/jre"
          println("test $home")
           exec {
             executable 'cl'
