@@ -56,13 +56,15 @@ public enum Native {
     }
   }
 
+  private static String fileName = "libbitshuffle-lz4-java";
+  
   private static String resourceName() {
     OS os = os();
     String packagePrefix = Native.class.getPackage().getName()
         .replace('.', '/');
 
     return "/" + os.name + "/" + arch()
-        + "/libbitshuffle-lz4-java." + os.libExtension;
+        + "/" + fileName + "." + os.libExtension;
   }
 
   private static boolean loaded = false;
@@ -84,7 +86,7 @@ public enum Native {
     }
     File tempLib;
     try {
-      tempLib = File.createTempFile("libbitshuffle-lz4-java", "."
+      tempLib = File.createTempFile(fileName, "."
           + os().libExtension);
       // copy to tempLib
       FileOutputStream out = new FileOutputStream(tempLib);
@@ -124,7 +126,7 @@ public enum Native {
       }
     } catch (IOException e) {
       throw new ExceptionInInitializerError(
-          "Cannot unpack libbishuffle-lz4-java");
+          "Cannot unpack "+ fileName);
     }
   }
 
