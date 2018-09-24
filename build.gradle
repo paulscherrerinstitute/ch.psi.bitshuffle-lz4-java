@@ -1,9 +1,20 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+    }
+}
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 
-version = '1.1.1'
+group = 'ch.psi'
+version = '1.1.2'
 
 repositories {
     mavenCentral()
@@ -13,13 +24,22 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: "https://artifacts.psi.ch/artifactory/libs-snapshots-local"){
             	authentication(userName: "upload", password: "{DESede}eWKHxAtQ2Dc=")
             }
-            pom.groupId = 'ch.psi'
+            pom.groupId = group
             pom.artifactId = 'bitshuffle-lz4'
         }
     }
@@ -139,4 +159,30 @@ task makeNativeCode {
           }
     }
   }
+}
+
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            groupId group
+            artifactId 'bitshuffle-lz4'
+            version version
+        }
+    }
+}
+    
+bintray {
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['MyPublication']     
+    pkg {
+        repo = 'hltools'
+        name = 'bitshuffle-lz4-java'
+        userOrg = 'paulscherrerinstitute'    
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/paulscherrerinstitute/ch.psi.bitshuffle-lz4-java'        
+    }
 }
