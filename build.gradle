@@ -169,7 +169,7 @@ publishing {
             artifact sourcesJar
             groupId group
             artifactId 'bitshuffle-lz4'
-            version version
+            version '1.1.2'
         }
     }
 }
@@ -181,8 +181,11 @@ bintray {
     pkg {
         repo = 'hltools'
         name = 'bitshuffle-lz4-java'
-        userOrg = 'paulscherrerinstitute'    
+        userOrg = 'paulscherrerinstitute'
         licenses = ['GPL-3.0']
-        vcsUrl = 'https://github.com/paulscherrerinstitute/ch.psi.bitshuffle-lz4-java'        
+        vcsUrl = 'https://github.com/paulscherrerinstitute/bitshuffle-lz4-java'
+        version {
+            name = '1.1.2'
+        }         
     }
 }
