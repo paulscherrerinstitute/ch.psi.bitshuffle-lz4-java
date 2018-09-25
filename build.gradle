@@ -36,8 +36,8 @@ artifacts {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "https://artifacts.psi.ch/artifactory/libs-snapshots-local"){
-            	authentication(userName: "upload", password: "{DESede}eWKHxAtQ2Dc=")
+            repository(url: artifactoryUrlLibSnap){
+            	authentication(userName: artifactoryUser, password: artifactoryPwd)
             }
             pom.groupId = group
             pom.artifactId = 'bitshuffle-lz4'
